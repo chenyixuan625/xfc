@@ -171,8 +171,12 @@ class Application extends EventEmitter {
       window.addEventListener('message', this.handleConsumerMessage);
       window.addEventListener('beforeunload', this.unload);
 
+      console.log('addEventListener has been executed!');
+
       // 2: Begin launch and authorization sequence
       this.JSONRPC.notification('launch');
+
+      console.log('launch notification has been executed!');
 
       // 2a. We have a specific origin to trust (excluding wildcard *),
       // wait for response to authorize.
@@ -180,21 +184,25 @@ class Application extends EventEmitter {
         this.JSONRPC.request('authorizeConsumer', [])
           .then(this.authorizeConsumer)
           .catch(this.emitError);
+        console.log('wait for response to authorize!');
 
       // 2b. We don't know who to trust, challenge parent for secret
       } else if (this.secret) {
         this.JSONRPC.request('challengeConsumer', [])
           .then(this.verifyChallenge)
           .catch(this.emitError);
+        console.log('challenge parent for secret!');
 
       // 2c. acl is '*' and there is no secret, immediately authorize content
       } else {
         this.authorizeConsumer();
+        console.log('authorizeConsumer has been executed!');
       }
 
     // If not embedded, immediately authorize content
     } else {
       this.authorizeConsumer();
+      console.log('not embedded!');
     }
   }
 

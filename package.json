@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.0",
+    "http-server": "^0.12.3",
+    "jquery-ui": "github:jquery/jquery-ui#1.11.4",
     "jsonrpc-dispatch": "^2.3.0",
     "mutation-observer": "^1.0.3"
   },

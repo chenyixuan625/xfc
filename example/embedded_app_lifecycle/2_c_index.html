@@ -5,6 +5,18 @@
     <meta charset="utf-8" />
     <script src="http://localhost:8080/xfc.js"></script>
     <style>
+      #sortable { list-style-type: none; margin: 0; padding: 5em; width: 60%; }
+      #sortable li { margin: 0 20px 20px 20px; padding: 4em; padding-left: 1em; font-size: 2em; height: 200px; }
+      </style>
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+      $( function() {
+        $( "#sortable" ).sortable();
+        $( "#sortable" ).disableSelection();
+      } );
+    </script>
+    <style>
       iframe {
         width: 100%;
         border: none;
@@ -58,9 +70,26 @@
     </div>
     <p>The following example shows 2 embedded frames.  An application can act as a consumer and a provider.
     </p>
-    <script>
+    <script>XFC.Consumer.init()</script>
+      <ul id="sortable">
+        <li class="ui-state-default" id="frame1"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+          <script>
+            XFC.Consumer.mount(document.getElementById("frame1"), 'http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_consumer_app.html?url=https://smart.cernerpowerchart.com/smart-app-validator-2.0/launch.html?iss=https%3A%2F%2Ffhir-ehr-code.cerner.com%2Fdstu2%2Fec2458f2-1e24-41c8-b71b-0e701af7583d&launch=2903c929-81f1-4d2c-a915-dc4dfdae620c', {secret: 'OAuth Header'});
+          </script>
+        </li>
+        <li class="ui-state-default" id="frame2"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+          <script>
+            XFC.Consumer.mount(document.getElementById("frame2"), 'http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_consumer_app.html?url=http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_embedded_app2.html', {secret: 'OAuth Header'});
+          </script>
+        </li>
+      </ul>
+    <!-- <script>
       XFC.Consumer.init()
-      XFC.Consumer.mount(document.body, 'http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_consumer_app.html?url=http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_embedded_app.html', {secret: 'OAuth Header'});
-    </script>
+      frame1 = XFC.Consumer.mount(document.body, 'http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_consumer_app.html?url=http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_embedded_app.html', {secret: 'OAuth Header'});
+      frame2 = XFC.Consumer.mount(document.body, 'http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_consumer_app.html?url=http://localprovider.com:8080/example/embedded_app_lifecycle/2_c_provider_embedded_app2.html', {secret: 'OAuth Header'});
+      window.a = frame1;
+      gfsfdsgfdg
+      window.b = frame2;
+    </script> -->
   </body>
 </html>
